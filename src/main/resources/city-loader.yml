@@ -1,0 +1,25 @@
+city-loader:
+  cities:
+    poitiers:
+      id: "fr-poitiers"
+      country: "France"
+      name: "Poitiers"
+      schedulingSyncsAndCarParks:
+        STATIC:
+          -
+            source: "https://data.grandpoitiers.fr/api/records/1.0/search/?dataset=mobilite-parkings-grand-poitiers-donnees-metiers&rows=1000&facet=nom_du_parking&facet=zone_tarifaire&facet=statut2&facet=statut3"
+            dataPath: "$.records[*].fields"
+            fieldMapping:
+              id: "nom"
+              name: "nom"
+              info: "info"
+              latitude: "ylat"
+              longitude: "xlong"
+        EVERY_1_MINUTE:
+          -
+            source: "https://data.grandpoitiers.fr/api/records/1.0/search/?dataset=mobilites-stationnement-des-parkings-en-temps-reel&facet=nom"
+            dataPath: "$.records[*].fields"
+            fieldMapping:
+              id: "nom"
+              capacity: "capacite"
+              freeSpots: "places"

@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: '27017'
+      database: car_parks
+      auto-index-creation: true
+  config:
+    import:
+      - classpath:city-loader.yml
+springdoc:
+  api-docs:
+    path: /api-docs
