@@ -36,7 +36,7 @@ public class CityController {
                                            @RequestParam(required = false) Double longitude,
                                            @RequestParam(required = false) Double latitude,
                                            @RequestParam(defaultValue = "false") boolean showOnlyAvailable,
-                                           @RequestParam(defaultValue = "10") double maxDistanceInKm) {
+                                           @RequestParam(defaultValue = "1000") double maxDistanceInM) {
         Geolocation location = null;
         if (longitude != null && latitude != null) {
             location = Geolocation.builder()
@@ -45,6 +45,6 @@ public class CityController {
                     .build();
         }
 
-        return cityService.findClosestCarParks(cityId, location, showOnlyAvailable, maxDistanceInKm);
+        return cityService.findClosestCarParks(cityId, location, showOnlyAvailable, maxDistanceInM);
     }
 }

@@ -36,12 +36,11 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInKm) {
+    public List<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInM) {
         List<CarPark> carParks;
         if (location == null) {
             carParks = carParkRepository.findAllByCityIdAndByAvailability(cityId, showOnlyAvailable);
         } else {
-            double maxDistanceInM = maxDistanceInKm * 1000;
             carParks = carParkRepository.findClosestByCityIdAndByAvailability(cityId, showOnlyAvailable, location.getLongitude(), location.getLatitude(), maxDistanceInM);
         }
         return carParks.stream()

@@ -10,5 +10,5 @@ public interface CityService {
 
     List<CityDTO> findAllCities();
 
-    List<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInKm);
+    List<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInM);
 }
