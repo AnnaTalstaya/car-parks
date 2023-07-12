@@ -17,10 +17,11 @@ Find closest cark parks to current location
 
 **Description of solution:**
 1) As we can expect that there'll be lots of queries for finding car parks, I've decided to create database for storing car parks information, because retrieving data from there will be done faster than getting data every time by URL from another service
-2) Used database is ***MongoDb*** as in provided already built in functionality for finding closes points to specified location. So it'll allow to perform search faster and more efficiently
+2) Used database is **MongoDb** as in provided already built in functionality for finding closes points to specified location. So it'll allow to perform search faster and more efficiently
 3) I've added different synchronization policies (STATIC, EVERY_1_MINUTE). That will allow to get some data only once and some once in a minute. 
 4) Why EVERY_1_MINUTE ? Because provided dataset of car park, where we can see free places, is updated every one minute
-5) For allowing the logic work not only for Poitiers datasets, but also for other cities and datasets ***citi-loader.yml*** file is created for field mapping and specification of desired datasets to be used
+5) For allowing the logic work not only for Poitiers datasets, but also for other cities and datasets **citi-loader.yml** file is created for field mapping and specification of desired datasets to be used
+6) 2 provided datasets of car parks can be joint only by **name** of car parks, as they don't have any intersecting ids. In general it's not a good practice to join by name, but here we don't have other choice
 
 **Stack:**\
 Java 17, Spring Boot, MongoDB, Maven, Lombok, Swagger, Docker, Git
