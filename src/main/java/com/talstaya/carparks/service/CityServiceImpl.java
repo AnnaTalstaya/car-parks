@@ -9,6 +9,9 @@ import com.talstaya.carparks.repository.CarParkRepository;
 import com.talstaya.carparks.repository.CityRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,23 +31,25 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<CityDTO> findAllCities() {
-        List<City> cities = cityRepository.findAll();
-        return cities.stream()
+    public Page<CityDTO> findAllCities(Pageable pageable) {
+        Page<City> cities = cityRepository.findAll(pageable);
+        List<CityDTO> cityDTOS =  cities.stream()
                 .map(city -> modelMapper.map(city, CityDTO.class))
                 .collect(Collectors.toList());
+        return new PageImpl<>(cityDTOS, pageable, cities.getTotalElements());
     }
 
     @Override
-    public List<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInM) {
-        List<CarPark> carParks;
+    public Page<CarParkDTO> findClosestCarParks(String cityId, Geolocation location, boolean showOnlyAvailable, double maxDistanceInM, Pageable pageable) {
+        Page<CarPark> carParks;
         if (location == null) {
-            carParks = carParkRepository.findAllByCityIdAndByAvailability(cityId, showOnlyAvailable);
+            carParks = carParkRepository.findAllByCityIdAndByAvailability(cityId, showOnlyAvailable, pageable);
         } else {
-            carParks = carParkRepository.findClosestByCityIdAndByAvailability(cityId, showOnlyAvailable, location.getLongitude(), location.getLatitude(), maxDistanceInM);
+            carParks = carParkRepository.findClosestByCityIdAndByAvailability(cityId, showOnlyAvailable, location.getLongitude(), location.getLatitude(), maxDistanceInM, pageable);
         }
-        return carParks.stream()
+        List<CarParkDTO> carParkDTOS = carParks.stream()
                 .map(carPark -> modelMapper.map(carPark, CarParkDTO.class))
                 .collect(Collectors.toList());
+        return new PageImpl<>(carParkDTOS, pageable, carParks.getTotalElements());
     }
 }

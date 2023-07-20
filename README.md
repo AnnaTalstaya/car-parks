@@ -8,12 +8,11 @@ Find closest cark parks to current location
 * [Car parks with indication of capatity and free places in Poitiers](https://data.grandpoitiers.fr/api/records/1.0/search/?dataset=mobilites-stationnement-des-parkings-en-temps-reel&facet=nom)
 
 **Time spent per task:**\
-5 days
+about 41 hour
 
 **Things that could be added, but were not due to lack of time:**
 1) Testing
-2) Pagination
-3) Dockerfile
+2) Dockerfile
 
 **Description of solution:**
 1) As we can expect that there'll be lots of queries for finding car parks, I've decided to create database for storing car parks information, because retrieving data from there will be done faster than getting data every time by URL from another service
