@@ -27,3 +27,7 @@ Java 17, Spring Boot, MongoDB, Maven, Lombok, Swagger, Docker, Git
 
 **Swagger**\
 http://localhost:8080/swagger-ui/index.html
+
+**To build an image**\
+Run from car-parks project:\
+***docker build -t car-parks -f ./src/main/docker/Dockerfile .***
